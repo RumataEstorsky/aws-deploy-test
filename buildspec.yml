@@ -1,9 +1,13 @@
-version: 0.1
+version: 0.2
 phases:
+  install:
+    runtime-versions:
+      java: openjdk11
   build:
     commands:
       - echo Build started on `date`
       - echo Run the test and package the code...
+      - apt-get install
       - sbt assembly
       - aws s3 cp target/scala-2.13/aws-deploy-test-assembly-1.0-SNAPSHOT.jar s3://$JAR_ARTIFACT_BUCKET/$JAR_ARTIFACT_KEY
   post_build:
